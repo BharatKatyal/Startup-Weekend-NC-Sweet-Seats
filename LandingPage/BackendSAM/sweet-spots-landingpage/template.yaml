@@ -91,7 +91,7 @@ Resources:
   WebsiteBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub ${AWS::StackName}-websitebu-${AWS::AccountId}
+      BucketName: !Sub ${AWS::StackName}-websitebucket
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: error.html
