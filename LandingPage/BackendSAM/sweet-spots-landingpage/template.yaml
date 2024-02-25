@@ -94,17 +94,25 @@ Resources:
       BucketName: !Sub ${AWS::StackName}-websitebu-${AWS::AccountId}
       WebsiteConfiguration:
         IndexDocument: index.html
+        ErrorDocument: error.html
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+        
   WebsiteBucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
       Bucket: !Ref WebsiteBucket
       PolicyDocument:
         Statement:
-          - Effect: Allow
-            Action: s3:GetObject
-            Principal:
-              AWS: '*'
+          - Action: s3:GetObject
+            Effect: Allow
             Resource: !Sub arn:aws:s3:::${WebsiteBucket}/*
+            Principal: '*'
+
+
 Outputs:
   HelloWorldApi:
     Description: API Gateway endpoint URL for Prod stage for Hello World function
