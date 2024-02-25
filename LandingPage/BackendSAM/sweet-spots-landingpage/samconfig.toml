@@ -4,7 +4,7 @@ version = 0.1
 
 [default]
 [default.global.parameters]
-stack_name = "landingpage-sweet-spots"
+stack_name = "sweet-spots-landingpage"
 
 [default.build.parameters]
 cached = true
