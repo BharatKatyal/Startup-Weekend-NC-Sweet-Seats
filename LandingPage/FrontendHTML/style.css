@@ -17,7 +17,14 @@ body, html {
 }
 
 .benefit-item {
-    margin: 20px 0;
+    margin: 40px 0;
+}
+
+.benefit-item img {
+    max-width: 25%;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px; /* Center image and add spacing between image and text */
 }
 
 .signup-form input, .signup-form button {
@@ -41,6 +48,6 @@ body, html {
 
 @media (max-width: 600px) {
     .benefit-item {
-        text-align: center;
+        margin: 30px 10px;
     }
 }
