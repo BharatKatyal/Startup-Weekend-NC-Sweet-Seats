@@ -1,0 +1,122 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: |
+  nc-startupweekend
+  Sample SAM Template for nc-startupweekend
+Globals:
+  Function:
+    Timeout: 3
+    MemorySize: 128
+    LoggingConfig:
+      LogFormat: JSON
+Resources:
+  ApplicationResourceGroup:
+    Type: AWS::ResourceGroups::Group
+    Properties:
+      Name: !Sub ApplicationInsights-SAM-${AWS::StackName}
+      ResourceQuery:
+        Type: CLOUDFORMATION_STACK_1_0
+  ApplicationInsightsMonitoring:
+    Type: AWS::ApplicationInsights::Application
+    Properties:
+      ResourceGroupName: !Ref ApplicationResourceGroup
+      AutoConfigurationEnabled: 'true'
+  # GetUserFunction:
+  #   Type: AWS::Serverless::Function
+  #   Properties:
+  #     CodeUri: get_user/
+  #     Handler: app.lambda_handler
+  #     Runtime: python3.9
+  #     Events:
+  #       ServerlessRestApiGETuser:
+  #         Type: Api
+  #         Properties:
+  #           Path: /user
+  #           Method: GET
+  #     Environment:
+  #       Variables:
+  #         USERSTABLE_TABLE_NAME: !Ref UsersTable
+  #         USERSTABLE_TABLE_ARN: !GetAtt UsersTable.Arn
+  #     Policies:
+  #       - DynamoDBCrudPolicy:
+  #           TableName: !Ref UsersTable
+  #     MemorySize: 3008
+  #     Timeout: 30
+  # PostUserFunction:
+  #   Type: AWS::Serverless::Function
+  #   Properties:
+  #     Description: !Sub
+  #       - Stack ${AWS::StackName} Function ${ResourceName}
+  #       - ResourceName: PostUserFunction
+  #     CodeUri: src/Function
+  #     Handler: handler.handler
+  #     Runtime: python3.9
+  #     MemorySize: 3008
+  #     Timeout: 30
+  #     Tracing: Active
+  #     Events:
+  #       ServerlessRestApiPOSTuser:
+  #         Type: Api
+  #         Properties:
+  #           Path: /user
+  #           Method: POST
+  #     Environment:
+  #       Variables:
+  #         USERSTABLE_TABLE_NAME: !Ref UsersTable
+  #         USERSTABLE_TABLE_ARN: !GetAtt UsersTable.Arn
+  #     Policies:
+  #       - DynamoDBCrudPolicy:
+  #           TableName: !Ref UsersTable
+  # PostUserFunctionLogGroup:
+  #   Type: AWS::Logs::LogGroup
+  #   DeletionPolicy: Retain
+  #   Properties:
+  #     LogGroupName: !Sub /aws/lambda/${PostUserFunction}
+
+  UserFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: user_function/
+      Handler: app.lambda_handler
+      Runtime: python3.9
+      Environment:
+        Variables:
+          USERS_TABLE: !Ref UsersTable
+      Events:
+        GetUser:
+          Type: Api
+          Properties:
+            Path: /user
+            Method: get
+        PostUser:
+          Type: Api
+          Properties:
+            Path: /user
+            Method: post
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UsersTable
+
+  UsersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      StreamSpecification:
+        StreamViewType: NEW_AND_OLD_IMAGES
+Outputs:
+  UsersTable:
+    Description: Users Table
+    Value: !Ref UsersTable
+    Export:
+      Name: !Sub ${AWS::StackName}-UsersTable
+  UserFunctionAPI:
+    Description: "API Gateway endpoint URL for Prod stage for UserFunction function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/user/"
+    Export:
+      Name: !Sub ${AWS::StackName}-UserFunctionAPI
