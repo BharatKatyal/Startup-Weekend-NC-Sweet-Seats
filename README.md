@@ -8,6 +8,9 @@ Figure out how to do Bucket Policy within SAM to Automate complete process
 
 
 
+UI Changes - Bucket policy Added
+
+
 Bucket Policy
 ```
 {

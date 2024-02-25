@@ -1,12 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500&display=swap');
+
 body, html {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Commissioner', sans-serif; /* Change the font-family to Commissioner */
 }
 
 .hero {
-    background-color: #ff6699;
-    color: #ffffff;
+    background-color: #FFEBDC;
+    color: #013140;
     text-align: center;
     padding: 50px 20px;
 }
@@ -20,11 +22,20 @@ body, html {
     margin: 40px 0;
 }
 
+
+.logo {
+    max-width: 25%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+
 .benefit-item img {
     max-width: 25%;
     height: auto;
     display: block;
-    margin: 0 auto 20px; /* Center image and add spacing between image and text */
+    margin: 0 auto 20px;
 }
 
 .signup-form input, .signup-form button {
@@ -32,12 +43,14 @@ body, html {
     margin: 5px;
     border: none;
     border-radius: 5px;
+    font-family: 'Commissioner', sans-serif; /* Apply Commissioner font */
 }
 
 .signup-form button {
-    background-color: #ff6699;
+    background-color: #A42A36;
     color: #ffffff;
     cursor: pointer;
+    /* Add any additional styles that match your button design image here */
 }
 
 .signup-footer {
