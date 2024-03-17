@@ -1,66 +1,130 @@
-@import url('https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500&display=swap');
-
+/* Base styles */
 body, html {
     margin: 0;
     padding: 0;
-    font-family: 'Commissioner', sans-serif; /* Change the font-family to Commissioner */
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #fff;
+    color: #333;
 }
 
-.hero {
-    background-color: #FFEBDC;
-    color: #013140;
-    text-align: center;
-    padding: 50px 20px;
+/* Ensures logo scales with the viewport */
+.logo {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px auto;
 }
 
-.benefits {
+/* Structure styles */
+.hero, .benefits, .signup-footer {
     padding: 20px;
     text-align: center;
 }
 
-.benefit-item {
-    margin: 40px 0;
-}
-
-
-.logo {
-    max-width: 25%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
-
-
-.benefit-item img {
-    max-width: 25%;
-    height: auto;
-    display: block;
-    margin: 0 auto 20px;
-}
-
-.signup-form input, .signup-form button {
+/* Form input and button base styles */
+.signup-form input[type='text'],
+.signup-form input[type='email'],
+.signup-form input[type='tel'],
+.signup-form button {
     padding: 10px;
     margin: 5px;
     border: none;
-    border-radius: 5px;
-    font-family: 'Commissioner', sans-serif; /* Apply Commissioner font */
+    border-radius: 4px;
+    width: calc(100% - 22px); /* adjusts for padding and margin */
 }
 
+/* Button specific styles */
 .signup-form button {
-    background-color: #A42A36;
-    color: #ffffff;
+    background-color: #fc4a1a; /* Orange color for buttons */
+    color: #fff;
     cursor: pointer;
-    /* Add any additional styles that match your button design image here */
 }
 
+/* Button hover effect */
+.signup-form button:hover {
+    background-color: #dd3d07; /* Slightly darker orange on hover */
+}
+
+/* Benefits section styling */
+.benefits {
+    background-color: #f4f4f4; /* Light grey background for benefits section */
+}
+.benefit-item {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* Text styling for the benefits section */
+.benefits h2, .benefit-item h3, .signup-footer h2 {
+    color: #fc4a1a; /* Orange color for headings */
+}
+
+.benefit-item p, .signup-footer {
+    color: #666;
+}
+
+/* Footer styling */
 .signup-footer {
-    background-color: #ffe6f2;
-    padding: 50px 20px;
-    text-align: center;
+    background-color: #2d2d2d; /* Dark background for the footer */
+    color: #fff;
 }
 
-@media (max-width: 600px) {
+/* Responsive media queries */
+@media (min-width: 576px) {
+    .signup-form input[type='text'],
+    .signup-form input[type='email'],
+    .signup-form input[type='tel'],
+    .signup-form button {
+        width: auto; /* Allows form items to be inline */
+        display: inline-block;
+    }
+    
+    .hero, .benefits, .signup-footer {
+        padding: 40px;
+    }
+
+    .benefits .benefit-item {
+        display: inline-block;
+        width: 30%;
+        vertical-align: top;
+        margin: 10px 1.5%;
+    }
+}
+
+@media (min-width: 768px) {
+    .logo {
+        max-width: 50%; /* Larger screens have a larger logo */
+    }
+    
+    .benefit-item img {
+        width: 100%; /* Ensures images are responsive within their containers */
+        height: auto;
+    }
+
     .benefit-item {
-        margin: 30px 10px;
+        width: calc(33.333% - 20px); /* Three items per row with padding */
+    }
+}
+
+@media (min-width: 992px) {
+    .logo {
+        max-width: 25%; /* Even larger logo for larger screens */
+    }
+    .benefit-item {
+        width: calc(33.333% - 20px); /* Three items per row with padding */
+    }
+    .benefits .benefit-item {
+        width: 28%; /* Adjusts for larger screens */
+        margin: 10px 1%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .benefits .benefit-item {
+        width: 25%; /* Accommodates space for 4 items if needed */
+        margin: 10px 1.25%;
+    }
+    .benefit-item {
+        width: calc(25% - 20px); /* Four items per row with padding */
     }
 }
