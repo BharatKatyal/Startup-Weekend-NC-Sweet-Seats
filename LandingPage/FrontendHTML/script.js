@@ -1,6 +1,6 @@
 // Function to submit data to the API
 function submitData(firstName, phoneNumber) {
-    fetch('https://gw8w4lq7u5.execute-api.us-east-1.amazonaws.com/Prod/submit/', {
+    fetch('https://i1zt35df9j.execute-api.us-east-1.amazonaws.com/Prod/submit/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
